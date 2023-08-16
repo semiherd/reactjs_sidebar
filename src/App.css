@@ -1,0 +1,117 @@
+*::after,
+*::before{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+  overflow-y: hidden;
+}
+:root{
+  --bar-width: 5vw;
+  --bar-height: 1vh;
+  --hamburger-gap: 1vh;
+  --foreground: #4B69CA;
+  --background: #fff;
+  --hamburger-margin: 2vw;
+  --animation-timing: 500ms ease-in-out;
+  --hamburger-height: calc(var(--bar-height)*3 + var(--hamburger-gap)*2);
+}
+.hamburger-menu{
+  display: flex;
+  transform: translateY(50%);
+  flex-direction: column;
+  gap: var(--hamburger-gap);
+  width: max-content;
+  position: absolute;
+  top: var(--hamburger-margin);
+  right: var(--hamburger-margin);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.hamburger-menu:has(input:checked){
+  --foreground: #fff;
+  --background: #4B69CA;
+}
+
+.hamburger-menu::before,
+.hamburger-menu::after,
+.hamburger-menu input{
+  content: "";
+  width: var(--bar-width);
+  height: var(--bar-height);
+  background-color: var(--foreground);
+  border-radius: 10px;
+  transform-origin: left center;
+  transition: opacity var(--animation-timing), 
+    width var(--animation-timing),
+    rotate var(--animation-timing),
+    translate var(--animation-timing),
+    background-color var(--animation-timing);
+}
+
+.hamburger-menu:has(input:checked)::before{
+  rotate: 45deg;
+  width: calc(var(--hamburger-height) * 1.41);
+  translate: 0 calc(var(--bar-height)/-2)
+}
+.hamburger-menu:has(input:checked)::after{
+  rotate: -45deg;
+  width: calc(var(--hamburger-height) * 1.41);
+  translate: 0 calc(var(--bar-height)/2);
+}
+
+.hamburger-menu input{
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  pointer-events: none;
+}
+.hamburger-menu input:checked {
+  opacity: 0;
+  width: 0;
+}
+.sidebar{
+  transition: translate var(--animation-timing);
+  translate: 150%;
+  padding: 0.5rem 1rem;
+  padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
+  background-color:  var(--foreground);
+  color: var(--background);
+  width: 50vw;
+  max-width: 20vw;
+  min-height: 100vh;
+  position: absolute;
+  position: absolute;
+  top:0;
+  right:0;
+  border-top-left-radius: 3%;
+  border-bottom-left-radius: 3%;
+}
+
+.hamburger-menu:has(input:checked) + .sidebar{
+  translate: 0;
+}
+.app-header{
+  background-color: white;
+  height: 20vh;
+  overflow-y: hidden;
+  z-index: -100;
+}
+.app-body{
+  background-color: #C0B9BF;
+  height: 80vh;
+  z-index: 1;
+}
+.logo{
+  transform: translate( 5%,0%) scale(1);
+  height: 20vh;
+  width: 15vw;
+}
+.sidebar *{
+  border-bottom: 0.5px solid whitesmoke;
+  margin: 3%;
+  padding: 3%;
+  font-weight: bold;
+}
