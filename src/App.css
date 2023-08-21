@@ -10,6 +10,8 @@ body{
   --bar-width: 5vw;
   --bar-height: 1vh;
   --hamburger-gap: 1vh;
+  --center-foreground: #5D4258;
+  --center-background: #6B5968;
   --foreground: #4B69CA;
   --background: #fff;
   --hamburger-margin: 2vw;
@@ -24,12 +26,17 @@ body{
   width: max-content;
   position: absolute;
   top: var(--hamburger-margin);
-  right: var(--hamburger-margin);
   z-index: 2;
   cursor: pointer;
 }
+.side{
+  right: var(--hamburger-margin);
+}
+.center{
+  right: 50%;
+}
 
-.hamburger-menu:has(input:checked){
+.hamburger-menu.side:has(input:checked){
   --foreground: #fff;
   --background: #4B69CA;
 }
@@ -72,9 +79,10 @@ body{
   opacity: 0;
   width: 0;
 }
+
 .sidebar{
   transition: translate var(--animation-timing);
-  translate: 150%;
+  translate: 100%;
   padding: 0.5rem 1rem;
   padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
   background-color:  var(--foreground);
@@ -83,15 +91,33 @@ body{
   max-width: 20vw;
   min-height: 100vh;
   position: absolute;
-  position: absolute;
   top:0;
   right:0;
   border-top-left-radius: 3%;
   border-bottom-left-radius: 3%;
 }
-
+.centerbar{
+  transition: opacity var(--animation-timing);
+  opacity: 0;
+  padding: 0.5rem 1rem;
+  padding-top: calc(var(--hamburger-height) + var(--hamburger-margin) + 1rem);
+  background-color:  var(--center-foreground);
+  color: var(--center-background);
+  width: 40vw;
+  height: 50vh;
+  position: absolute;
+  top:25vh;
+  left: 30vw;
+  border-radius: 3%;
+}
 .hamburger-menu:has(input:checked) + .sidebar{
   translate: 0;
+}
+.hamburger-menu:has(input:checked) + .centerbar{
+  opacity: 1;
+}
+.hamburger-menu:has(input:checked) .app-body{
+  background-color: red;
 }
 .app-header{
   background-color: white;
@@ -114,4 +140,11 @@ body{
   margin: 3%;
   padding: 3%;
   font-weight: bold;
+}
+.centerbar *{
+  border-bottom: 0.5px solid whitesmoke;
+  margin: 3%;
+  padding: 3%;  
+  font-weight: bold;
+  color: ghostwhite;
 }
